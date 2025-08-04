@@ -1,120 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Sample API for Testing</title>
+    <title>Sample API Testing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Prism.js for JSON syntax highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css">
+
     <style>
         body {
             background-color: #f9f9f9;
         }
-        .section {
-            margin-bottom: 2rem;
-        }
+
         pre {
-            background: #222;
+            background: #1e1e1e;
             color: #eee;
             padding: 1rem;
             border-radius: 8px;
             overflow-x: auto;
-            font-size: 0.9rem;
         }
+
         code {
-            color: #f8d27c;
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
         }
-        input, button {
-            margin-right: 0.5rem;
+
+        .json-response {
+            font-size: 0.85rem;
+        }
+
+        .tab-pane .form-control {
+            margin-bottom: 0.5rem;
         }
     </style>
 </head>
+
 <body>
     <div class="container py-5">
         <h1 class="mb-4 text-center text-primary">📦 Sample API for Testing</h1>
 
-        <div class="section">
-            <p>This API supports GET methods for the following sample data:</p>
-            <ul>
-                <li>📚 Books</li>
-                <li>🍎 Fruits</li>
-                <li>👤 Persons</li>
-                <li>🛒 Products</li>
-                <li>🏭 Manufacturers</li>
-            </ul>
-            <p>Base URL: <code>http://localhost/api/v1</code></p>
-        </div>
+        <p>This API supports GET methods for the following sample data:</p>
+        <ul>
+            <li>📚 Books</li>
+            <li>🍎 Fruits</li>
+            <li>👤 Persons</li>
+            <li>🛒 Products</li>
+            <li>🏭 Manufacturers</li>
+        </ul>
+        <p>Base URL: <code>http://127.0.0.1:8000/api/v1</code></p>
 
-        <div class="section">
-            <h3>🍎 Fruit API – GET Endpoints</h3>
+        <ul class="nav nav-tabs" id="apiTabs" role="tablist">
+            @php
+                $entities = [
+                    'fruits' => ['label' => '🍎 Fruits', 'single' => 'fruit'],
+                    'books' => ['label' => '📚 Books', 'single' => 'book'],
+                    'persons' => ['label' => '👤 Persons', 'single' => 'person'],
+                    'products' => ['label' => '🛒 Products', 'single' => 'product'],
+                    'manufacturers' => ['label' => '🏭 Manufacturers', 'single' => 'manufacturer'],
+                ];
 
-            <h5>🔹 View a Random Fruit</h5>
-            <pre><code>GET /api/v1/fruit</code></pre>
-            <pre><code>curl http://localhost/api/v1/fruit</code></pre>
+            @endphp
+            @foreach ($entities as $key => $entity)
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link @if ($loop->first) active @endif" id="{{ $key }}-tab" data-bs-toggle="tab"
+                        data-bs-target="#tab-{{ $key }}" type="button" role="tab" aria-controls="tab-{{ $key }}"
+                        aria-selected="{{ $loop->first ? 'true' : 'false' }}"
+                        data-single="{{ $entity['single'] }}">
+                        {{ $entity['label'] }}
+                    </button>
+                </li>
+            @endforeach
+        </ul>
 
-            <hr>
+        <div class="tab-content mt-4" id="apiTabsContent">
+            @foreach ($entities as $key => $entity)
+                <div class="tab-pane fade @if ($loop->first) show active @endif" id="tab-{{ $key }}" role="tabpanel"
+                    aria-labelledby="{{ $key }}-tab">
+                    <h4>{{ $entity['label'] }} API</h4>
 
-            <h5>🔹 View All Fruits (with Filter)</h5>
-            <pre><code>GET /api/v1/fruits?limit=3&fields=id,name</code></pre>
-            <pre><code>curl "http://localhost/api/v1/fruits?limit=3&fields=id,name"</code></pre>
+                    <!-- List API form -->
+                    <form class="api-form row g-2 align-items-center"
+                        data-entity="{{ $key }}"
+                        data-single="{{ $entity['single'] }}"
+                        data-type="list">
+                        <div class="col-md-2">
+                            <input type="number" name="limit" class="form-control" placeholder="Limit">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" name="fields" class="form-control" placeholder="Fields (e.g. id,name)">
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary w-100">Try It</button>
+                        </div>
+                    </form>
 
-            <form id="fruit-form" class="mt-3">
-                <div class="row g-2 align-items-center">
-                    <div class="col-md-3">
-                        <input type="number" id="limit" class="form-control" placeholder="Limit (e.g. 5)">
+                    <div class="mt-3">
+                        <strong>🔧 cURL Command:</strong>
+                        <pre><code class="language-bash curl-preview">curl http://localhost/api/v1/{{ $key }}</code></pre>
                     </div>
-                    <div class="col-md-6">
-                        <input type="text" id="fields" class="form-control" placeholder="Fields (e.g. id,name)">
+
+                    <div class="mt-3">
+                        <strong>📦 Live API JSON Response:</strong>
+                        <pre><code class="language-bash curl-preview" data-type="list">...</code></pre>
+                        <pre class="json-response language-json" data-type="list"><code class="language-json">Waiting for query...</code>
+                        </pre>
                     </div>
-                    <div class="col-md-3">
-                        <button type="submit" class="btn btn-primary w-100">Try It</button>
+
+                    <hr class="my-4">
+
+                    <!-- Get Random Item -->
+                    <h5>🎲 Get a Random {{ ucfirst($key) }}</h5>
+                    <div class="mt-2">
+                        <strong>🔧 cURL Command:</strong>
+                        <pre><code class="language-bash">curl http://localhost/api/v1/{{ $entity['single'] }}</code></pre>
+                    </div>
+
+                    <div class="mt-2">
+                        <strong>📦 Live JSON Response:</strong>
+                        <pre class="json-response-random language-json"><code class="language-json" id="random-{{ $key }}">Loading random item...</code>
+                        </pre>
                     </div>
                 </div>
-            </form>
-
-            <div class="mt-4">
-                <p><strong>Live API JSON Response:</strong></p>
-                <pre id="api-response"><code>Waiting for query...</code></pre>
-            </div>
+            @endforeach
         </div>
 
-        <div class="section text-center">
+
+        <div class="section text-center mt-5">
             <p class="text-muted">Only GET routes are shown publicly. More will be added soon.</p>
             <p class="text-muted">Happy Testing! 🚀</p>
         </div>
     </div>
 
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-json.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+
     <script>
-        const form = document.getElementById('fruit-form');
-        const responseBox = document.getElementById('api-response');
+        document.querySelectorAll('.api-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
 
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
+                const entity = this.dataset.entity;
+                const type = this.dataset.type;
+                const tab = this.closest('.tab-pane');
 
-            const limit = document.getElementById('limit').value;
-            const fields = document.getElementById('fields').value;
+                let url = `http://127.0.0.1:8000/api/v1/${entity}`;
+                let curlText = '';
+                const curlBox = tab.querySelector(`.curl-preview[data-type="${type}"]`);
+                const responseBox = tab.querySelector(`.json-response[data-type="${type}"] code`);
 
-            let url = "http://127.0.0.1:8000/api/v1/fruits";
-            const params = [];
+                if (type === 'list') {
+                    const limit = this.querySelector('[name="limit"]').value;
+                    const fields = this.querySelector('[name="fields"]').value;
+                    const params = [];
 
-            if (limit) params.push(`limit=${encodeURIComponent(limit)}`);
-            if (fields) params.push(`fields=${encodeURIComponent(fields)}`);
+                    if (limit) params.push(`limit=${encodeURIComponent(limit)}`);
+                    if (fields) params.push(`fields=${encodeURIComponent(fields)}`);
+                    if (params.length) url += `?${params.join("&")}`;
 
-            if (params.length) {
-                url += "?" + params.join("&");
+                } else if (type === 'single') {
+                    const id = this.querySelector('[name="id"]').value.trim();
+                    if (!id) {
+                        responseBox.textContent = '❌ Please enter a valid ID.';
+                        Prism.highlightElement(responseBox);
+                        return;
+                    }
+                    url += `/${encodeURIComponent(id)}`;
+                }
+
+                curlText = `curl "${url}"`;
+                curlBox.textContent = curlText;
+                Prism.highlightElement(curlBox);
+
+                responseBox.textContent = 'Loading...';
+                Prism.highlightElement(responseBox);
+
+                fetch(url)
+                    .then(res => res.json())
+                    .then(data => {
+                        responseBox.textContent = JSON.stringify(data, null, 2);
+                        Prism.highlightElement(responseBox);
+                    })
+                    .catch(() => {
+                        responseBox.textContent = '❌ Failed to fetch API response.';
+                        Prism.highlightElement(responseBox);
+                    });
+            });
+        });
+
+        document.querySelectorAll('button[data-bs-toggle="tab"]').forEach(tabBtn => {
+            tabBtn.addEventListener('shown.bs.tab', function (e) {
+                const tabId = e.target.getAttribute('data-bs-target');
+                const tabPane = document.querySelector(tabId);
+                const entity = e.target.id.replace('-tab', '');
+                const single = this.dataset.single;
+                const randomCode = tabPane.querySelector(`#random-${entity}`);
+                const url = `http://127.0.0.1:8000/api/v1/${single}`;   
+
+                randomCode.textContent = 'Loading...';
+                Prism.highlightElement(randomCode);
+
+                fetch(url)
+                    .then(res => res.json())
+                    .then(data => {
+                        randomCode.textContent = JSON.stringify(data, null, 2);
+                        Prism.highlightElement(randomCode);
+                    })
+                    .catch(() => {
+                        randomCode.textContent = '❌ Failed to fetch random API response.';
+                        Prism.highlightElement(randomCode);
+                    });
+            });
+
+            // Load first tab random by default
+            if (tabBtn.classList.contains('active')) {
+                tabBtn.dispatchEvent(new Event('shown.bs.tab'));
             }
-
-            responseBox.innerHTML = "<code>Loading...</code>";
-
-            fetch(url)
-                .then(res => res.json())
-                .then(data => {
-                    const formatted = JSON.stringify(data, null, 2);
-                    responseBox.innerHTML = `<code>${formatted}</code>`;
-                })
-                .catch(err => {
-                    responseBox.innerHTML = '<code style="color:red;">Failed to fetch API response.</code>';
-                });
         });
     </script>
+
 </body>
+
 </html>
