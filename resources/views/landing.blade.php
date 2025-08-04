@@ -6,7 +6,7 @@
     <title>Sample API Testing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Bootstrap -->
+    <!-- Bootstrap CSS for styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Prism.js for JSON syntax highlighting -->
@@ -53,8 +53,10 @@
         </ul>
         <p>Base URL: <code>http://127.0.0.1:8000/api/v1</code></p>
 
+        <!-- Navigation tabs for different entities -->
         <ul class="nav nav-tabs" id="apiTabs" role="tablist">
             @php
+                // Define entities and their labels
                 $entities = [
                     'fruits' => ['label' => '🍎 Fruits', 'single' => 'fruit'],
                     'books' => ['label' => '📚 Books', 'single' => 'book'],
@@ -62,7 +64,6 @@
                     'products' => ['label' => '🛒 Products', 'single' => 'product'],
                     'manufacturers' => ['label' => '🏭 Manufacturers', 'single' => 'manufacturer'],
                 ];
-
             @endphp
             @foreach ($entities as $key => $entity)
                 <li class="nav-item" role="presentation">
@@ -76,13 +77,14 @@
             @endforeach
         </ul>
 
+        <!-- Tab content for each entity -->
         <div class="tab-content mt-4" id="apiTabsContent">
             @foreach ($entities as $key => $entity)
                 <div class="tab-pane fade @if ($loop->first) show active @endif" id="tab-{{ $key }}" role="tabpanel"
                     aria-labelledby="{{ $key }}-tab">
                     <h4>{{ $entity['label'] }} API</h4>
 
-                    <!-- List API form -->
+                    <!-- Form for listing API -->
                     <form class="api-form row g-2 align-items-center"
                         data-entity="{{ $key }}"
                         data-single="{{ $entity['single'] }}"
@@ -128,7 +130,6 @@
             @endforeach
         </div>
 
-
         <div class="section text-center mt-5">
             <p class="text-muted">Only GET routes are shown publicly. More will be added soon.</p>
             <p class="text-muted">Happy Testing! 🚀</p>
@@ -142,6 +143,7 @@
     <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
 
     <script>
+        // Add event listeners to all API forms for handling submissions
         document.querySelectorAll('.api-form').forEach(form => {
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
@@ -155,6 +157,7 @@
                 const curlBox = tab.querySelector(`.curl-preview[data-type="${type}"]`);
                 const responseBox = tab.querySelector(`.json-response[data-type="${type}"] code`);
 
+                // Build URL based on form inputs
                 if (type === 'list') {
                     const limit = this.querySelector('[name="limit"]').value;
                     const fields = this.querySelector('[name="fields"]').value;
@@ -174,13 +177,16 @@
                     url += `/${encodeURIComponent(id)}`;
                 }
 
+                // Update cURL command preview
                 curlText = `curl "${url}"`;
                 curlBox.textContent = curlText;
                 Prism.highlightElement(curlBox);
 
+                // Show loading text while fetching data
                 responseBox.textContent = 'Loading...';
                 Prism.highlightElement(responseBox);
 
+                // Fetch API data
                 fetch(url)
                     .then(res => res.json())
                     .then(data => {
@@ -194,6 +200,7 @@
             });
         });
 
+        // Event listeners for tab switching and loading random API data
         document.querySelectorAll('button[data-bs-toggle="tab"]').forEach(tabBtn => {
             tabBtn.addEventListener('shown.bs.tab', function (e) {
                 const tabId = e.target.getAttribute('data-bs-target');
@@ -206,6 +213,7 @@
                 randomCode.textContent = 'Loading...';
                 Prism.highlightElement(randomCode);
 
+                // Fetch random API data
                 fetch(url)
                     .then(res => res.json())
                     .then(data => {
