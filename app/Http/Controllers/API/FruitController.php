@@ -149,13 +149,14 @@ class FruitController extends BaseController
             $fruits = $this->service->viewFruits(
                 limit: $request->query('limit'),
                 search_query:  $request->query('search_query'),
+                pagination: $request->query('pagination'),
             );            // Instantiate the resource and get its array output
-            $fruitsCollection = new FruitCollection(new FruitResource($fruits));
+            $fruitsCollection = new FruitCollection($fruits);
             
             $response = [
                 'is_success' => true,
                 'message '=> 'Fruits displayed successfully.',
-                'fruits' => $fruitsCollection
+                'fruits' =>$fruitsCollection
             ];
             return response()->json($response,200);
 

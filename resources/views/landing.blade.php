@@ -92,10 +92,13 @@
                         <div class="col-md-2">
                             <input type="number" name="limit" class="form-control" placeholder="Limit">
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <input type="text" name="fields" class="form-control" placeholder="Fields (e.g. id,name)">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
+                            <input type="text" name="pagination" class="form-control" placeholder="Pagination(1,2)(per page and page no.)">
+                        </div>
+                        <div class="col-md-2">
                             <button type="submit" class="btn btn-primary w-100">Try It</button>
                         </div>
                     </form>
@@ -161,10 +164,13 @@
                 if (type === 'list') {
                     const limit = this.querySelector('[name="limit"]').value;
                     const fields = this.querySelector('[name="fields"]').value;
+                    const pagination = this.querySelector('[name="pagination"]').value;
+
                     const params = [];
 
                     if (limit) params.push(`limit=${encodeURIComponent(limit)}`);
                     if (fields) params.push(`fields=${encodeURIComponent(fields)}`);
+                    if (pagination) params.push(`pagination=${encodeURIComponent(pagination)}`);
                     if (params.length) url += `?${params.join("&")}`;
 
                 } else if (type === 'single') {

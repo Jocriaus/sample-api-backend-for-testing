@@ -45,34 +45,56 @@ class FruitService
         return $response; // Placeholder return
     }
 
-    public function viewFruits(string $limit = null, string $search_query = null)
+    public function viewFruits(?string $limit = null, ?string $search_query = null, ?string $pagination = null)
     {
         $query = Fruit::query();
 
         if ($limit){
             $query->limit($limit);
+        }else {
+            $query->limit(10);
         }
 
-        if ($search_query){
+        // Search the fruits by the given search query
+        if ($search_query) {
             $search = strtolower($search_query);
-            $query->where(function($q) use ($search) {
-                $q->where("name",'LIKE', "%{$search}%")
-                ->orWhere("scientific_name", 'LIKE', "%{$search}%")
-                ->orWhere("taste_profile", 'LIKE', "%{$search}%")
-                ->orWhere("season", 'LIKE', "%{$search}%")
-                ->orWhere("is_seasonal", 'LIKE', "%{$search}%")
-                ->orWhere("price_per_kg", 'LIKE', "%{$search}%")
-                ->orWhere("origin_country", 'LIKE', "%{$search}%")
-                ->orWhere("description", 'LIKE', "%{$search}%")
-                ->orWhere("color", 'LIKE', "%{$search}%");
+            $query->where(function ($q) use ($search) {
+                // Search by the following fields
+                $fields = [
+                    "name", "scientific_name", "taste_profile",
+                    "season", "is_seasonal", "price_per_kg",
+                    "origin_country", "description", "color"
+                ];
+
+                // Iterate over the fields and search by the given search query
+                foreach ($fields as $field) {
+                    $q->orWhereRaw("LOWER($field) LIKE ?", ["%{$search}%"]);
+                }
             });
         }
 
-        $fruits = $query->get();
+        // --- Pagination Handling ---
+        if ($pagination) {
+            $paginationArray = explode(',', $pagination);
+            $perPage = is_numeric($paginationArray[0]) ? (int)$paginationArray[0] : 10;
+            $page = (isset($paginationArray[1]) && is_numeric($paginationArray[1])) ? (int)$paginationArray[1] : 1;
 
+            // If limit is set, it overrides per-page size
+            if ($limit && is_numeric($limit)) {
+                $perPage = (int)$limit;
+            }
 
-        
-        return $fruits;
+            return $query->paginate($perPage, ['*'], 'page', $page);
+        }
+
+        // --- No Pagination ---
+        if ($limit && is_numeric($limit)) {
+            $query->limit((int)$limit);
+        } else {
+            $query->limit(10);
+        }
+
+        return $query->get();
     }
 
     public function viewFruit()
