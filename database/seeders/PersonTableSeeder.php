@@ -18,12 +18,12 @@ class PersonTableSeeder extends Seeder
         $faker = Faker::create('en_US');
 
         // Clear existing records to prevent duplicates on re-seeding
-        DB::table('person')->truncate();
+        DB::table('people')->truncate();
 
         $genders = ['Male', 'Female', 'Non-binary', null]; // Including null for testing nullable fields
 
         for ($i = 0; $i < 25; $i++) { // Creating 25 person records
-            DB::table('person')->insert([
+            DB::table('people')->insert([
                 'first_name' => $faker->firstName,
                 'last_name' => $faker->lastName,
                 'email' => $faker->boolean(80) ? $faker->unique()->safeEmail : null, // 80% chance of having an email
