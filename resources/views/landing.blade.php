@@ -96,7 +96,7 @@
                             <input type="text" name="fields" class="form-control" placeholder="Fields (e.g. id,name)">
                         </div>
                         <div class="col-md-4">
-                            <input type="text" name="pagination" class="form-control" placeholder="Pagination(1,2)(per page and page no.)">
+                            <input type="text" name="pagination" class="form-control" placeholder="Pagination(1,2)(page no. and per page)">
                         </div>
                         <div class="col-md-2">
                             <button type="submit" class="btn btn-primary w-100">Try It</button>
