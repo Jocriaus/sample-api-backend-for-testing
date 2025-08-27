@@ -35,17 +35,17 @@ class BookRequest extends FormRequest
     {
         // Change Profile Picture
         if ($this->routeIs('book.store')) {
-            return $this->storeFruit();
+            return $this->storeBook();
         }
         if ($this->routeIs('book.update')) {
-            return $this->storeFruit();
+            return $this->storeBook();
         }
         return array_merge(
             []
         );
     }
 
-        private function storeFruit(): array
+    private function storeBook(): array
     {
         return [
             'title' => [

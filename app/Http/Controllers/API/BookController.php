@@ -88,16 +88,16 @@ class BookController extends BaseController
     public function viewBook(BookRequest $request){
         try{
 
-            $fruitModel = $this->service->viewBook();
+            $bookModel = $this->service->viewBook();
 
             // Instantiate the resource and get its array output
-            $fruitResourceArray = (new BookResource($fruitModel))->toArray($request);
+            $bookResourceArray = (new BookResource($bookModel))->toArray($request);
 
             // Build the final response array with your additional data
             $response = [
                 'is_success' => true,
-                'message '=> 'A fruit displayed successfully.',
-                'fruit' => $fruitResourceArray // Nest the clean array output
+                'message '=> 'A book displayed successfully.',
+                'book' => $bookResourceArray // Nest the clean array output
             ];
             
             // Return the final array as a JSON response
@@ -161,17 +161,17 @@ class BookController extends BaseController
     public function viewBooks(BookRequest $request){
         try{
 
-            $fruits = $this->service->viewBooks(
+            $books = $this->service->viewBooks(
                 limit: $request->query('limit'),
                 search_query:  $request->query('search_query'),
                 pagination: $request->query('pagination'),
             );            // Instantiate the resource and get its array output
-            $booksCollection = new BookCollection($fruits);
+            $booksCollection = new BookCollection($books);
             
             $response = [
                 'is_success' => true,
-                'message '=> 'Fruits displayed successfully.',
-                'fruits' => $booksCollection
+                'message '=> 'Books displayed successfully.',
+                'books' => $booksCollection
             ];
             return response()->json($response,200);
 
