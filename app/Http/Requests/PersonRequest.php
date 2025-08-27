@@ -20,7 +20,7 @@ class PersonRequest extends FormRequest
         if ($this->routeIs('person.view')) {
             return true;
         }
-        if ($this->routeIs('persons.view')) {
+        if ($this->routeIs('people.view')) {
             return true;
         }
         return false;

@@ -2,7 +2,6 @@
 
 namespace App\Services;
 use App\Models\Fruit;
-use App\Http\Resources\FruitCollection;
 
 class FruitService
 {

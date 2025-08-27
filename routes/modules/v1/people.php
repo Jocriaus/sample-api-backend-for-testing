@@ -7,23 +7,23 @@ use Illuminate\Support\Facades\Route;
 Route::prefix("v1")->controller(PersonController::class) //->middleware('auth:sanctum')
 ->group(function () {
     // ALL-AROUND APIS ON FILE CONTROLLER //
-    // Route to store a new Book
+    // Route to store a new person
     Route::post('person', 'storePerson')
-         ->name('book.create');
+         ->name('person.create');
 
-    // Route to view a random Book
+    // Route to view a random person
     Route::get('person', 'viewPerson')
          ->name('person.view');
 
-    // Route to view a list of all Books
-    Route::get('persons', 'viewPersons')
-         ->name('person.view');
+    // Route to view a list of all people
+    Route::get('people', 'viewPeople')
+         ->name('people.view');
 
-    // Route to update an existing Book by its ID
-    Route::put('person/{book_id}', 'updatePerson')
+    // Route to update an existing person by its ID
+    Route::put('person/{person_id}', 'updatePerson')
          ->name('person.update');
 
-    // Route to delete a specific Book by its ID
-    Route::delete('person/{book_id}', 'deletePerson')
+    // Route to delete a specific person by its ID
+    Route::delete('person/{person_id}', 'deletePerson')
          ->name('person.delete');
 });

@@ -2,7 +2,6 @@
 
 namespace App\Services;
 use App\Models\Person;
-use App\Http\Resources\PersonCollection;
 class PersonService
 {
     /**
@@ -45,7 +44,7 @@ class PersonService
         return $response; // Placeholder return
     }
 
-    public function viewPersons(?string $limit = null, ?string $search_query = null, ?string $pagination = null)
+    public function viewPeople(?string $limit = null, ?string $search_query = null, ?string $pagination = null)
     {
         $query = Person::query();
 

@@ -30,7 +30,7 @@ class PersonController extends BaseController
         } catch (Throwable $e) {
             // Return an error JSON response in case of an exception
             return response()->json([
-                'message' => 'Failed to store a fruit.',
+                'message' => 'Failed to store a person.',
                 'error' => config('app.debug') ? $e->getMessage() : 'Internal Server Error',
             ], 500);
         }
@@ -56,32 +56,32 @@ class PersonController extends BaseController
             
         }catch(Throwable $e){
             return response()->json([
-                'message' => 'Failed to view a book.',
+                'message' => 'Failed to view a person.',
                 'error' => config('app.debug') ? $e->getMessage() : 'Internal Server Error',
             ], 500);
         }
     }
 
-    public function viewPersons(PersonRequest $request){
+    public function viewPeople(PersonRequest $request){
         try{
 
-            $persons = $this->service->viewPersons(
+            $people = $this->service->viewPeople(
                 limit: $request->query('limit'),
                 search_query:  $request->query('search_query'),
                 pagination: $request->query('pagination'),
             );            // Instantiate the resource and get its array output
-            $personsCollection = new PersonCollection($persons);
+            $peopleCollection = new PersonCollection($people);
             
             $response = [
                 'is_success' => true,
-                'message '=> 'Persons displayed successfully.',
-                'persons' => $personsCollection
+                'message '=> 'People displayed successfully.',
+                'people' => $peopleCollection
             ];
             return response()->json($response,200);
 
         }catch(Throwable $e){
             return response()->json([
-                'message' => 'Failed to view persons.',
+                'message' => 'Failed to view People.',
                 'error' => config('app.debug') ? $e->getMessage() : 'Internal Server Error',
             ], 500);
         }
@@ -100,7 +100,7 @@ class PersonController extends BaseController
 
         }catch(Throwable $e){
             return response()->json([
-                'message' => 'Failed to update a book.',
+                'message' => 'Failed to update a person record.',
                 'error' => config('app.debug') ? $e->getMessage() : 'Internal Server Error',
             ], 500);
         }
@@ -115,7 +115,7 @@ class PersonController extends BaseController
 
         }catch(Throwable $e){
             return response()->json([
-                'message' => 'Failed to delete a book.',
+                'message' => 'Failed to delete a person.',
                 'error' => config('app.debug') ? $e->getMessage() : 'Internal Server Error',
             ]);
         }
