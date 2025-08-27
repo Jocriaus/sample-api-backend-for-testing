@@ -156,7 +156,7 @@ class FruitController extends BaseController
             $response = [
                 'is_success' => true,
                 'message '=> 'Fruits displayed successfully.',
-                'fruits' =>$fruitsCollection
+                'fruits' => $fruitsCollection
             ];
             return response()->json($response,200);
 

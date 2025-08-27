@@ -12,7 +12,6 @@ class FruitRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // Change Profile Picture
         if ($this->routeIs('fruit.store')) {
             return Auth::check();
         }

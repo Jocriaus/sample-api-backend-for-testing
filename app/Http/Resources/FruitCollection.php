@@ -48,14 +48,7 @@ class FruitCollection extends ResourceCollection
 
         // Non-paginated: just use count
         return [
-            'data' => $data,
-            'meta' => [
-                'total' => $this->count(), // Total number of items in the collection
-                'count' => $this->count(), // Number of items in the collection
-                'per_page' => $this->count(), // Number of items per page
-                'current_page' => 1, // Current page number
-                'total_pages' => 1, // Total number of pages
-            ]
+            'data' => $data
         ];
     }
 

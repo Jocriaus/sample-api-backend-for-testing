@@ -76,8 +76,8 @@ class FruitService
         // --- Pagination Handling ---
         if ($pagination) {
             $paginationArray = explode(',', $pagination);
-            $perPage = is_numeric($paginationArray[0]) ? (int)$paginationArray[0] : 10;
-            $page = (isset($paginationArray[1]) && is_numeric($paginationArray[1])) ? (int)$paginationArray[1] : 1;
+            $page = is_numeric($paginationArray[0]) ? (int)$paginationArray[0] : 10;
+            $perPage = (isset($paginationArray[1]) && is_numeric($paginationArray[1])) ? (int)$paginationArray[1] : 1;
 
             // If limit is set, it overrides per-page size
             if ($limit && is_numeric($limit)) {
