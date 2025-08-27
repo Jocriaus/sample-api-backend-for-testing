@@ -60,7 +60,7 @@
                 $entities = [
                     'fruits' => ['label' => '🍎 Fruits', 'single' => 'fruit'],
                     'books' => ['label' => '📚 Books', 'single' => 'book'],
-                    'persons' => ['label' => '👤 Persons', 'single' => 'person'],
+                    'people' => ['label' => '👤 Persons', 'single' => 'person'],
                     'products' => ['label' => '🛒 Products', 'single' => 'product'],
                     'manufacturers' => ['label' => '🏭 Manufacturers', 'single' => 'manufacturer'],
                 ];
