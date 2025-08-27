@@ -65,6 +65,7 @@ class FruitController extends BaseController
             ], 500);
         }
     }
+
     /**
      * @OA\Get(
      *     path="/api/v1/fruit",
@@ -106,6 +107,7 @@ class FruitController extends BaseController
             ], 500);
         }
     }
+
     /**
      * @OA\Get(
      *     path="/api/v1/fruits",
@@ -167,6 +169,7 @@ class FruitController extends BaseController
             ], 500);
         }
     }
+
     /**`
      * @OA\Put(
      *     path="/api/v1/fruit/{id}",
@@ -262,6 +265,7 @@ class FruitController extends BaseController
             ], 500);
         }
     }
+    
     /**
      * @OA\Delete(
      *     path="/api/v1/fruit/{id}",
