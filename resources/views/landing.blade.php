@@ -105,7 +105,7 @@
 
                     <div class="mt-3">
                         <strong>🔧 cURL Command:</strong>
-                        <pre><code class="language-bash curl-preview">curl{{ env('APP_URL', 'http://127.0.0.1:8000') }}/api/v1/{{ $key }}</code></pre>
+                        <pre><code class="language-bash curl-preview">curl {{ env('APP_URL', 'http://127.0.0.1:8000') }}/api/v1/{{ $key }}</code></pre>
                     </div>
 
                     <div class="mt-3">
