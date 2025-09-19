@@ -1,8 +1,8 @@
 # Sample API Backend using Laravel
 
-<p align="center">
+<!-- <p align="center">
   <img src="https://laravel.com/assets/img/components/logo-laravel.svg" width="300" alt="Laravel Logo">
-</p>
+</p> -->
 
 ## About the Project
 
