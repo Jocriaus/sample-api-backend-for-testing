@@ -8,16 +8,6 @@
 
 This project is a sample API backend built using Laravel, a PHP framework for web development. It provides a simple and elegant way to create API endpoints.
 
-## Features
-
-*   [Simple, fast routing engine](https://laravel.com/docs/routing).
-*   [Powerful dependency injection container](https://laravel.com/docs/container).
-*   Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-*   Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-*   Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-*   [Robust background job processing](https://laravel.com/docs/queues).
-*   [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
 ## Getting Started
 
 To get started with the project, follow these steps:
@@ -32,25 +22,68 @@ To get started with the project, follow these steps:
 
 The API endpoints are as follows:
 
-*   `GET /users`: Returns a list of all users.
-*   `GET /users/{id}`: Returns a single user by ID.
-*   `POST /users`: Creates a new user.
-*   `PUT /users/{id}`: Updates a single user by ID.
-*   `DELETE /users/{id}`: Deletes a single user by ID.
+*   `GET /product?fields=<field1>,<field2>,...`:
+    Returns a single random product. The `fields` parameter defines what fields will be returned in the response.
+    For example, if you want to get the `name` and `price` fields of a product, you can use the following query:
+    `GET /product?fields=name,price`
 
-## Contributing
+*   `GET /product?limit=<limit>&search_query=<search_query>&pagination=<page>,<per_page>`:
+    Returns a record product depending on the parameter query.
+    The `limit` parameter defines the maximum number of records to return.
+    The `search_query` parameter defines the search query to use when searching for products.
+    The `pagination` parameter defines the page number and the number of records per page.
+    For example, if you want to get the records of products on page 1 with 10 records per page, you can use the following query:
+    `GET /product?limit=10&search_query=apple&pagination=1,10`
 
-Thank you for considering contributing to the project! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+*   `GET /manufacturer?fields=<field1>,<field2>,...`:
+    Returns a single random manufacturer. The `fields` parameter defines what fields will be returned in the response.
+    For example, if you want to get the `name` and `price` fields of a manufacturer, you can use the following query:
+    `GET /manufacturer?fields=name,price`
 
-## Code of Conduct
+*   `GET /manufacturer?limit=<limit>&search_query=<search_query>&pagination=<page>,<per_page>`:
+    Returns a record manufacturer depending on the parameter query.
+    The `limit` parameter defines the maximum number of records to return.
+    The `search_query` parameter defines the search query to use when searching for manufacturers.
+    The `pagination` parameter defines the page number and the number of records per page.
+    For example, if you want to get the records of manufacturers on page 1 with 10 records per page, you can use the following query:
+    `GET /manufacturer?limit=10&search_query=apple&pagination=1,10`
 
-In order to ensure that the project community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+*   `GET /fruit?fields=<field1>,<field2>,...`:
+    Returns a single random fruit. The `fields` parameter defines what fields will be returned in the response.
+    For example, if you want to get the `name` and `price` fields of a fruit, you can use the following query:
+    `GET /fruit?fields=name,price`
 
-## Security Vulnerabilities
+*   `GET /fruit?limit=<limit>&search_query=<search_query>&pagination=<page>,<per_page>`:
+    Returns a record fruit depending on the parameter query.
+    The `limit` parameter defines the maximum number of records to return.
+    The `search_query` parameter defines the search query to use when searching for fruits.
+    The `pagination` parameter defines the page number and the number of records per page.
+    For example, if you want to get the records of fruits on page 1 with 10 records per page, you can use the following query:
+    `GET /fruit?limit=10&search_query=apple&pagination=1,10`
 
-If you discover a security vulnerability within the project, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+*   `GET /people?fields=<field1>,<field2>,...`:
+    Returns a single random people. The `fields` parameter defines what fields will be returned in the response.
+    For example, if you want to get the `name` and `price` fields of a people, you can use the following query:
+    `GET /people?fields=name,price`
 
-## License
+*   `GET /people?limit=<limit>&search_query=<search_query>&pagination=<page>,<per_page>`:
+    Returns a record people depending on the parameter query.
+    The `limit` parameter defines the maximum number of records to return.
+    The `search_query` parameter defines the search query to use when searching for people.
+    The `pagination` parameter defines the page number and the number of records per page.
+    For example, if you want to get the records of people on page 1 with 10 records per page, you can use the following query:
+    `GET /people?limit=10&search_query=apple&pagination=1,10`
 
-The project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+*   `GET /book?fields=<field1>,<field2>,...`:
+    Returns a single random book. The `fields` parameter defines what fields will be returned in the response.
+    For example, if you want to get the `name` and `price` fields of a book, you can use the following query:
+    `GET /book?fields=name,price`
+
+*   `GET /book?limit=<limit>&search_query=<search_query>&pagination=<page>,<per_page>`:
+    Returns a record book depending on the parameter query.
+    The `limit` parameter defines the maximum number of records to return.
+    The `search_query` parameter defines the search query to use when searching for books.
+    The `pagination` parameter defines the page number and the number of records per page.
+    For example, if you want to get the records of books on page 1 with 10 records per page, you can use the following query:
+    `GET /book?limit=10&search_query=apple&pagination=1,10`
 
