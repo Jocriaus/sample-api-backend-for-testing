@@ -214,7 +214,7 @@
                 const entity = e.target.id.replace('-tab', '');
                 const single = this.dataset.single;
                 const randomCode = tabPane.querySelector(`#random-${entity}`);
-                const url = `http://127.0.0.1:8000/api/v1/${single}`;   
+                const url = `${env('APP_URL', 'http://127.0.0.1:8000')}/api/v1/${single}`;   
 
                 randomCode.textContent = 'Loading...';
                 Prism.highlightElement(randomCode);
