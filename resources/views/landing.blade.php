@@ -51,7 +51,7 @@
             <li>🛒 Products</li>
             <li>🏭 Manufacturers</li>
         </ul>
-        <p>Base URL: <code>{{ env('APP_URL', 'http://127.0.0.1:8000') }}/api/v1</code></p>
+        <p>Base URL: <code>{{ env('APP_URL', request()->root()) }}/api/v1</code></p>
 
         <!-- Navigation tabs for different entities -->
         <ul class="nav nav-tabs" id="apiTabs" role="tablist">
@@ -105,7 +105,7 @@
 
                     <div class="mt-3">
                         <strong>🔧 cURL Command:</strong>
-                        <pre><code class="language-bash curl-preview">curl {{ env('APP_URL', 'http://127.0.0.1:8000') }}/api/v1/{{ $key }}</code></pre>
+                        <pre><code class="language-bash curl-preview">curl {{ env('APP_URL', request()->root()) }}/api/v1/{{ $key }}</code></pre>
                     </div>
 
                     <div class="mt-3">
@@ -121,7 +121,7 @@
                     <h5>🎲 Get a Random {{ ucfirst($key) }}</h5>
                     <div class="mt-2">
                         <strong>🔧 cURL Command:</strong>
-                        <pre><code class="language-bash">curl {{ env('APP_URL', 'http://127.0.0.1:8000') }}/api/v1/{{ $entity['single'] }}</code></pre>
+                        <pre><code class="language-bash">curl {{ env('APP_URL', request()->root()) }}/api/v1/{{ $entity['single'] }}</code></pre>
                     </div>
 
                     <div class="mt-2">
@@ -154,8 +154,8 @@
                 const entity = this.dataset.entity;
                 const type = this.dataset.type;
                 const tab = this.closest('.tab-pane');
-                
-                let url = `${env('APP_URL', 'http://127.0.0.1:8000')}/api/v1/${entity}`;
+                const APP_URL = "{{ env('APP_URL', request()->root()) }}";
+                let url = `${APP_URL}/api/v1/${entity}`;
                 let curlText = '';
                 const curlBox = tab.querySelector(`.curl-preview[data-type="${type}"]`);
                 const responseBox = tab.querySelector(`.json-response[data-type="${type}"] code`);
@@ -214,7 +214,8 @@
                 const entity = e.target.id.replace('-tab', '');
                 const single = this.dataset.single;
                 const randomCode = tabPane.querySelector(`#random-${entity}`);
-                const url = `${env('APP_URL', 'http://127.0.0.1:8000')}/api/v1/${single}`;   
+                const APP_URL = "{{ env('APP_URL', request()->root()) }}";
+                const url = `${APP_URL}/api/v1/${single}`;   
 
                 randomCode.textContent = 'Loading...';
                 Prism.highlightElement(randomCode);
@@ -242,3 +243,4 @@
 </body>
 
 </html>
+
